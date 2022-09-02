@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body::-webkit-scrollbar {
+  @apply hidden;
+}
+#root {
+  @apply m-auto w-[100vw] h-[100vh] dark:bg-slate-700 dark:text-white;
+}
