@@ -8,6 +8,7 @@ export default defineConfig(({ command }) => {
   // eslint-disable-next-line no-undef
   const isDev = command == 'serve'
   return {
+    base: 'hotrungnhan.github.io/3D-Animation/*',
     plugins: [
       react(),
       eslint({

@@ -1,0 +1,65 @@
+name: App CI
+
+on:
+  push:
+    branches:
+      - "*"
+    paths-ignore:
+      - "*.md"
+env:
+  GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+jobs:
+  # Build & Test
+  buildAndTest:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ env.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+          cache: "yarn"
+      - name: INSTALL
+        run: yarn
+      # Build
+      - name: BUILD
+        run: yarn build
+
+      # Upload dist artifacts
+      - uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist/
+  deploy:
+    name: Deploy
+    if: github.ref == 'refs/heads/master'
+    needs: buildAndTest
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ env.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      # Download dist artifacts
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: dist/
+
+      # Deploy dist folder to gh pages
+      - name: DEPLOY
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ env.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          user_name: hotrungnhan
+          user_email: hotrungnhan29@gmail.com
