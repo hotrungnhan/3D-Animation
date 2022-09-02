@@ -8,7 +8,7 @@ export const Meterial = {
 export function MaterialContext() {
   useContactMaterial(Meterial.ground, Meterial.ball, {
     friction: 0.1,
-    restitution: 0.7,
+    restitution: 0.8,
   })
   return null
 }
