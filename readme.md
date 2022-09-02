@@ -1,5 +1,5 @@
 # Threejs Demo
-Playground witht three js , container some library such as threejs and cannon ,... and it Ecosystem 
+Playground with three js , contain some library such as threejs and cannon ,... and it Ecosystem 
 * loader GLTF model
 * render multi camera to multiple viewport 
 * animation 
